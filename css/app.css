@@ -1,0 +1,30 @@
+:root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,sans-serif;color:#172b4d;background:#f2f5fa;font-synthesis:none}
+    *{box-sizing:border-box}body{margin:0;padding:20px 12px 54px}main{max-width:650px;margin:auto}
+    h1{font-size:24px;margin:0 0 5px;letter-spacing:-.4px}h2{font-size:17px;margin:0 0 13px}
+    p{line-height:1.6;margin:0}.sub{font-size:13px;color:#64758b}.head{margin-bottom:18px}
+    .card{background:#fff;border:1px solid #e3eaf3;border-radius:18px;padding:18px;margin:0 0 13px;box-shadow:0 3px 12px #20385a09}
+    .tag{display:inline-block;font-size:11px;font-weight:700;background:#eaf2ff;color:#2665ac;padding:5px 9px;border-radius:40px;margin-bottom:10px}
+    .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.between{justify-content:space-between}.column{display:flex;flex-direction:column;gap:5px}
+    .radios{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:15px 0}
+    .radio{border:1px solid #d7e0ec;border-radius:12px;padding:13px 10px;text-align:center;font-weight:700;cursor:pointer}
+    .radio:has(input:checked){border-color:#276fcb;background:#edf5ff;color:#1d5cae}.radio input{margin-right:6px;accent-color:#226dc9}
+    input[type=text]{width:100%;background:#fff;border:1px solid #ccd8e8;border-radius:11px;padding:14px;font-size:18px;font-weight:650;letter-spacing:1.2px;text-transform:uppercase;color:#17395f}
+    input:focus{outline:2px solid #8dbdfa;outline-offset:2px}label.small{display:block;font-size:13px;font-weight:650;margin:8px 0 7px}
+    button{border:0;background:#236bc4;color:#fff;border-radius:11px;padding:13px 14px;min-height:45px;font-size:14px;font-weight:700;cursor:pointer;touch-action:manipulation}
+    button.secondary{background:#edf2f8;color:#214c7b}button.danger{background:#e14e4a}button:disabled{opacity:.44;cursor:not-allowed}
+    .badge{display:inline-flex;align-items:center;gap:7px;padding:7px 10px;border-radius:30px;background:#f2f4f6;color:#566779;font-size:12px;font-weight:750}
+    .dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#a0aab6}
+    .badge.good{background:#e3f6e8;color:#19733f}.badge.good .dot{background:#2aa05b}
+    .badge.bad{background:#fff0eb;color:#b14c37}.badge.bad .dot{background:#e17c5b}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+    .grid button{font-size:17px;min-height:62px}.grid button.refresh{grid-column:1/-1;background:#1f8b83}
+    .display{border:8px solid #1c3045;border-radius:19px;background:#f9fbff;min-height:240px;padding:14px;margin-top:12px}
+    .screenbar{display:flex;align-items:center;justify-content:space-between;font-size:12px;color:#63758c;border-bottom:1px solid #dce5ef;padding-bottom:12px}
+    .targetgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:24px}
+    .target{background:#eaf0f7;color:#20456e;border-radius:12px;padding:18px 2px;text-align:center;font-weight:800;font-size:17px;border:2px solid transparent}
+    .target span{display:block;font-size:11px;font-weight:500;color:#64758b;margin-top:6px}
+    .target.active{background:#d7f5e3;border-color:#2da96a;color:#136435}
+    .statusline{background:#edf3fa;border-radius:10px;padding:13px;margin-top:17px;text-align:center;font-size:13px;color:#244768;min-height:46px}
+    .log{background:#111f32;color:#cae0f7;border-radius:12px;padding:11px 13px;max-height:180px;min-height:90px;overflow:auto;font:12px/1.65 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:pre-wrap;word-break:break-word}
+    .note{border-left:3px solid #d69f42;padding:8px 12px;background:#fffaf0;font-size:12px;color:#7c6138;border-radius:5px;line-height:1.6}
+    [hidden]{display:none!important}footer{font-size:11px;color:#7a8899;text-align:center;margin-top:15px}
