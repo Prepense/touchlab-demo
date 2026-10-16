@@ -3,6 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'self'; script-src 'self' https://unpkg.com/mqtt@5.16.1/dist/mqtt.min.js; style-src 'self' 'unsafe-inline'; connect-src wss://broker.emqx.io:8084; worker-src 'self' blob:; img-src 'self' data:; form-action 'none'">
   <meta name="theme-color" content="#172b4d">
   <title>TouchLab — iPhone ↔ Android Demo</title>
   <link rel="stylesheet" href="./css/app.css">
@@ -10,7 +12,7 @@
 <body>
 <main>
   <header class="head">
-    <span class="tag">SIMULATED COMMAND · PHASE A</span>
+    <span class="tag">SIMULATED COMMAND · PHASE A · 1.2</span>
     <h1>TouchLab</h1>
     <p class="sub">ทดสอบการส่งคำสั่ง iPhone ↔ Android ข้ามเครือข่ายมือถือ</p>
   </header>
@@ -46,6 +48,11 @@
       <span class="badge" id="deviceBadge" role="status" aria-live="polite"><span class="dot"></span>รออุปกรณ์</span>
     </div>
     <p id="connectionHint" class="sub" role="status" style="margin-top:12px">คำสั่งและ ACK ทั้งหมดเป็นการจำลอง</p>
+    <div style="border-top:1px solid #e3eaf3;margin-top:14px;padding-top:14px">
+      <button id="keepAwake" class="secondary" type="button" aria-pressed="false" aria-describedby="awakeStatus">เปิดหน้าจอค้าง</button>
+      <p id="awakeStatus" class="sub" role="status" aria-live="polite" style="margin-top:8px">ยังไม่เปิดหน้าจอค้าง</p>
+      <p class="sub" style="margin-top:6px">ใช้ขณะเปิดเว็บนี้ด้านหน้า ระบบอาจยกเลิกเมื่อสลับแอป ล็อกจอ หรือแบตเตอรี่ต่ำ ใช้พลังงานเพิ่มขึ้น กดปิดเมื่อจบทดสอบ</p>
+    </div>
   </section>
   <section class="card" id="hostPanel" hidden>
     <h2>3. ส่งคำสั่งจาก iPhone</h2>
@@ -80,7 +87,7 @@
   <footer>TouchLab Prototype · Static HTML + MQTT over Secure WebSocket</footer>
 </main>
 <noscript><p class="note">TouchLab ต้องใช้ JavaScript โปรดเปิดใช้งานแล้วโหลดหน้าใหม่</p></noscript>
-<script id="mqttScript" async src="https://unpkg.com/mqtt@5/dist/mqtt.min.js"></script>
-<script type="module" src="./js/app.js"></script>
+<script id="mqttScript" async src="https://unpkg.com/mqtt@5.16.1/dist/mqtt.min.js" integrity="sha256-dYc9BKZAC7usCTs2Asrwb0Ttku4DKSXh9PIcA+ugWk4=" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="module" src="./js/app.js?v=1.2.0"></script>
 </body>
 </html>
