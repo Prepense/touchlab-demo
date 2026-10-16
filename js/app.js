@@ -1,5 +1,6 @@
 import { randomCode, validRoom } from './protocol.js';
 import { TouchLabSession } from './session.js';
+import { ScreenAwake } from './screen-awake.js';
 
 const $ = id => document.getElementById(id);
 const chosenRole = () => document.querySelector('input[name="role"]:checked').value;
@@ -55,6 +56,24 @@ const session = new TouchLabSession({
     else if (type === 'command') applyCommand(data);
   }
 });
+const screenAwake = new ScreenAwake({
+  request: window.isSecureContext && typeof navigator.wakeLock?.request === 'function'
+    ? () => navigator.wakeLock.request('screen') : undefined,
+  visible: () => !document.hidden,
+  emit({ supported, active, wanted, busy, error }) {
+    const button = $('keepAwake');
+    if (!button || !$('awakeStatus')) return; // Cached pre-1.2 HTML can still use the command demo.
+    button.disabled = !supported || busy;
+    button.textContent = busy ? 'กำลังดำเนินการ…' : active ? 'ปิดการเปิดหน้าจอค้าง' : 'เปิดหน้าจอค้าง';
+    button.setAttribute('aria-pressed', String(active));
+    $('awakeStatus').textContent = error || (!supported ? 'เบราว์เซอร์นี้ไม่รองรับ — ลองใช้ Chrome รุ่นปัจจุบันบน Android ผ่าน HTTPS'
+      : active ? 'เปิดหน้าจอค้างอยู่ · เปิดหน้า TouchLab ไว้ด้านหน้า'
+      : wanted ? 'หน้าจอค้างถูกพักหรือระบบยกเลิก · กลับมาหน้านี้แล้วกดเปิดอีกครั้งได้'
+      : 'ยังไม่เปิด · กดเมื่อต้องการให้หน้าจอไม่ดับระหว่างทดสอบ');
+  }
+});
+if ($('keepAwake')) $('keepAwake').onclick = () => { if (screenAwake.active) void screenAwake.disable(); else void screenAwake.enable(); };
+screenAwake.changed();
 const labels = {
   disconnected: 'Disconnected · ยังไม่เชื่อมต่อ', connecting: 'กำลังเชื่อมต่อ Broker',
   subscribing: 'Broker เชื่อมแล้ว · รอ Subscribe', ready: 'Connected to broker',
@@ -89,9 +108,13 @@ $('connect').onclick = () => {
 $('disconnect').onclick = () => session.disconnect();
 document.querySelectorAll('input[name="role"]').forEach(input => input.addEventListener('change', render));
 document.querySelectorAll('[data-cmd]').forEach(button => { button.onclick = () => { if (!document.hidden) session.send(button.dataset.cmd); }; });
-document.addEventListener('visibilitychange', () => { if (document.hidden) session.suspend(); else session.resume(); render(); });
-window.addEventListener('pagehide', () => session.suspend());
-window.addEventListener('pageshow', () => { if (!document.hidden) session.resume(); });
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) { session.suspend(); void screenAwake.pause(); }
+  else { session.resume(); void screenAwake.resume(); }
+  render();
+});
+window.addEventListener('pagehide', () => { session.suspend(); void screenAwake.pause(); });
+window.addEventListener('pageshow', () => { if (!document.hidden) { session.resume(); void screenAwake.resume(); } });
 window.addEventListener('offline', () => { log('เบราว์เซอร์รายงานว่าเครือข่าย offline'); session.suspend(); });
 window.addEventListener('online', () => { log('เครือข่ายกลับมา — รอ Presence ใหม่ก่อนส่งคำสั่ง'); if (!document.hidden) session.resume(); });
 render(); drawTargets();
